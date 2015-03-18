@@ -1,0 +1,49 @@
+Average Houses Price
+========================================================
+author: Patlaf
+date: 11/03/2015
+transition: rotate
+
+Application Description
+========================================================
+
+The goal of the application is to be able to understand the price difference of houses depending on variables like
+
+- Number of bedrooms
+- Number of bathrooms
+- Number or levels
+- Year of construction
+
+
+Who would use it ?
+========================================================
+
+The app is designed for buyers or sellers who want to have a better idea of the house market of the region. It can gives a good idea of the price to expect.
+
+![Buyer/Seller](http://www.nlyte.com/wp-content/uploads/2014/08/Buyer-Seller-Rd-Sign.jpg)
+
+How does it work ?
+========================================================
+
+The app use a dataset of houses from Quebec City. 
+
+On load, it shows the mean price according to the filters default values. You can then use the sliders to limit the number of houses used to build the mean price.
+
+You also have to possibility to aggregate the price by the 4 distinct variables.
+
+
+What's planned in the next release
+========================================================
+Further releases should include regression on variables to understand how they really impact the price.
+```{r echo=FALSE}
+require(rCharts)
+
+house <- read.csv('http://patlaf.com/house.csv')
+house <- house[,-1]
+house <- house[complete.cases(house),]
+house <- house[house$YearConstruction > 1940,]
+
+m <- lm(Price ~ NbrBedroom, data=house)
+summary(m)
+
+```
